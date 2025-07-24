@@ -716,20 +716,7 @@
 
         sections.forEach(section => observer.observe(section));
 
-        // Set email destination function
-        function setEmailDestination() {
-            const emailInput = document.getElementById('destinationEmail');
-            const emailStatus = document.getElementById('emailStatus');
-            
-            if (emailInput.value && emailInput.value.includes('@')) {
-                emailDestination = emailInput.value;
-                emailStatus.textContent = `Email destination set to: ${emailDestination}`;
-                emailStatus.style.color = '#10b981';
-            } else {
-                emailStatus.textContent = 'Please enter a valid email address';
-                emailStatus.style.color = '#ef4444';
-            }
-        }
+
 
         // Generate email body
         function generateEmailBody(formData) {
@@ -808,8 +795,14 @@
             const emailBody = generateEmailBody(data);
             const subject = `Chroma EOI - ${data.formType} - ${data.firstName} ${data.lastName}`;
             
-            // Create mailto link
+            // Debug: Log the email destination to verify it's correct
+            console.log('Email destination:', emailDestination);
+            
+            // Create mailto link with the correct email
             const mailtoLink = `mailto:${emailDestination}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Debug: Log the mailto link
+            console.log('Mailto link:', mailtoLink);
             
             // Open email client
             window.location.href = mailtoLink;
